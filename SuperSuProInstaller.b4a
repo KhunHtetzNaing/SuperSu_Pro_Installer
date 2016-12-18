@@ -1,0 +1,171 @@
+﻿Version=6.3
+NumberOfModules=1
+Module1=Starter
+Build1=Default,com.htetznaing.supersupro
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~'AdMob~\n~AddApplicationText(~\n~<meta-data android:name="com.google.android.gms.version"~\n~  android:value="@integer/google_play_services_version"/>~\n~<activity android:name="com.google.android.gms.ads.AdActivity"~\n~  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>~\n~~\n~)~\n~'End of AdMob
+IconFile=
+NumberOfFiles=3
+File1=1.png
+File2=SuperSU Pro-2.79 Crack.apk
+File3=SuperSU Pro-2.79.apk
+NumberOfLibraries=4
+Library1=core
+Library2=admob
+Library3=mwadmobinterstitial2 (2)
+Library4=phone
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: SuperSu Pro Installer
+	#VersionCode: 1
+	#VersionName: 1.0
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+	#AdditionalRes: D:\Android\android-sdk\extras\google\google-play-services\libproject\google-play-services_lib\res, com.google.android.gms
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+Dim ad1,ad2 As Timer
+End Sub
+
+Sub Globals
+Dim imv As ImageView
+Dim ph As Phone
+Dim b1,b2 As Button
+Dim lfoot As Label
+Dim Banner As AdView
+Dim Interstitial As mwAdmobInterstitial
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	If ph.SdkVersion > 19 Then
+		Banner.Initialize("Banner","ca-app-pub-4173348573252986/2289117352")
+		Banner.LoadAd
+		Activity.AddView(Banner,0%x,80%y,100%x,50dip)
+		
+		Interstitial.Initialize("Interstitial","ca-app-pub-4173348573252986/3765850556")
+		Interstitial.LoadAd
+		
+		ad1.Initialize("ad1",100)
+		ad1.Enabled = False
+		ad2.Initialize("ad2",30000)
+		ad2.Enabled = True
+	End If
+	Activity.Color = Colors.White
+	ph.SetScreenOrientation(1)
+
+imv.Initialize("imv")
+imv.Bitmap = LoadBitmap(File.DirAssets,"1.png")
+imv.Gravity = Gravity.FILL
+Activity.AddView(imv,50%x - 50dip  , 10dip ,  110dip  ,  110dip )
+
+b1.Initialize("b1")
+Dim b1bg As ColorDrawable
+b1bg.Initialize(Colors.Black,10)
+b1.Text = "Install"
+b1.Background = b1bg
+Activity.AddView(b1,20%x,(imv.Top+imv.Height)+3%y,60%x,50dip)
+
+b2.Initialize("b2")
+b2.Background = b1bg
+b2.Text = "Crack Full Version"
+Activity.AddView(b2,20%x,(b1.Top+b1.Height)+3%y,60%x,50dip)
+
+Dim l As Label
+l.Initialize("l")
+l.Text = "Credit to < Chainfire (SuperSu Developer) />"
+l.TextColor = Colors.Red
+Activity.AddView(l,0%x,(b2.Height+b2.Top)+5%y,100%x,5%y)
+l.Gravity = Gravity.CENTER
+
+lfoot.Initialize("ft")
+lfoot.Text = "Developed By Khun Htetz Naing"
+lfoot.TextColor = Colors.Magenta
+lfoot.Gravity = Gravity.CENTER
+Activity.AddView(lfoot,0%x,95%y,100%x,5%y)
+End Sub
+
+Sub l_Click
+	Dim ngoma As PhoneIntents
+	StartActivity(ngoma.OpenBrowser("https://www.chainfire.eu/"))
+End Sub
+Sub ft_Click
+	Dim aa As PhoneIntents
+	StartActivity(aa.OpenBrowser("https://www.facebook.com/Khun.Htetz.Naing"))
+End Sub
+
+Sub imv_Click
+	If ph.SdkVersion > 19 Then
+		ad1.Enabled = True
+	End If
+	Dim i As PhoneIntents
+	StartActivity(i.OpenBrowser("https://play.google.com/store/apps/details?id=com.htetznaing.supersupro"))
+End Sub
+
+Sub b1_Click
+		If ph.SdkVersion > 19 Then
+		ad1.Enabled = True
+	End If
+Msgbox("1. SuperSU App" & CRLF & "2. After Click Crack Full Version!","Attention!")
+	File.Copy(File.DirAssets,"SuperSU Pro-2.79.apk" ,File.DirRootExternal,"SuperSU Pro-2.79.apk")
+	Dim i As Intent
+    i.Initialize(i.ACTION_VIEW,"file:///"&File.DirRootExternal&"/SuperSU Pro-2.79.apk")
+	i.SetType("application/vnd.android.package-archive")
+	StartActivity(i)
+End Sub
+
+Sub b2_Click
+		If ph.SdkVersion > 19 Then
+		ad1.Enabled = True
+	End If
+Msgbox("1. Install SuperSU Pro App" & CRLF & "2. After You can use Full Version!" & CRLF & "Enjoy :)","Attention!")
+	File.Copy(File.DirAssets,"SuperSU Pro-2.79 Crack.apk" ,File.DirRootExternal,"SuperSU Pro-2.79 Crack.apk")
+	Dim i As Intent
+    i.Initialize(i.ACTION_VIEW,"file:///"&File.DirRootExternal&"/SuperSU Pro-2.79 Crack.apk")
+	i.SetType("application/vnd.android.package-archive")
+	StartActivity(i)
+End Sub
+
+Sub Activity_Resume
+If File.Exists(File.DirRootExternal,"SuperSU Pro-2.79 Crack.apk") = True Then
+	File.Delete(File.DirRootExternal,"SuperSU Pro-2.79 Crack.apk")
+End If
+
+If File.Exists(File.DirRootExternal,"SuperSU Pro-2.79.apk") = True Then
+	File.Delete(File.DirRootExternal,"SuperSU Pro-2.79.apk")
+End If
+End Sub
+
+Sub ad1_Tick
+	If ph.SdkVersion > 19 Then
+	If Interstitial.Status = Interstitial.Status_AdReadyToShow Then
+		Interstitial.Show
+	End If
+	
+	If Interstitial.Status = Interstitial.Status_Dismissed Then
+		Interstitial.LoadAd
+	End If
+	End If
+	ad1.Enabled = False
+End Sub
+
+Sub ad2_Tick
+		If ph.SdkVersion > 19 Then
+	If Interstitial.Status = Interstitial.Status_AdReadyToShow Then
+		Interstitial.Show
+	End If
+	
+	If Interstitial.Status = Interstitial.Status_Dismissed Then
+		Interstitial.LoadAd
+	End If
+	End If
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
